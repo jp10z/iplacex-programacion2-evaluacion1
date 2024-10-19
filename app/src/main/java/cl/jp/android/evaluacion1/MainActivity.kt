@@ -1,5 +1,6 @@
 package cl.jp.android.evaluacion1
 
+import android.icu.text.NumberFormat
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import cl.jp.android.evaluacion1.modelo.CuentaMesa
 import cl.jp.android.evaluacion1.modelo.ItemMenu
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,5 +75,6 @@ class MainActivity : AppCompatActivity() {
 
 fun formatearPrecio(numero: Int): String {
     // Función que permite formatear un número a un texto precio (ej: $13.000)
-    return "$" + "%,d".format(numero).replace(",", ".")
+    val format = NumberFormat.getCurrencyInstance(Locale("es", "CL")) // Chilean format for example
+    return format.format(numero)
 }
