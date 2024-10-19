@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Obtenemos vistas (elementos de la interfaz) y asignamos a variables
-        val tvPlatoPastelChocloPrecio = findViewById<TextView>(R.id.tvPlatoPastelChocloPrecio)
-        val tvPlatoCazuelaPrecio = findViewById<TextView>(R.id.tvPlatoCazuelaPrecio)
+        val tvPlatoPastelChocloTotal = findViewById<TextView>(R.id.tvPlatoPastelChocloTotal)
+        val tvPlatoCazuelaTotal = findViewById<TextView>(R.id.tvPlatoCazuelaTotal)
         val etPlatoPastelChocloCantidad = findViewById<EditText>(R.id.etPlatoPastelChocloCantidad)
         val etPlatoCazuelaCantidad = findViewById<EditText>(R.id.etPlatoCazuelaCantidad)
         val tvComidaValor = findViewById<TextView>(R.id.tvComidaValor)
@@ -37,14 +37,16 @@ class MainActivity : AppCompatActivity() {
         val swPropina = findViewById<Switch>(R.id.swPropina)
 
         // Definimos instancias de los platos incluyendo sus precios
-        val itemPlatoPastelChoclo = ItemMenu("Pastel de choclo", 36000)
+        val itemPlatoPastelChoclo = ItemMenu("Pastel de choclo", 12000)
         val itemPlatoCazuela = ItemMenu("Cazuela", 10000)
 
         // Seteamos los precios definidos de los platos en la interfaz
-        tvPlatoPastelChocloPrecio.text = formatearPrecio(itemPlatoPastelChoclo.precio)
-        tvPlatoCazuelaPrecio.text = formatearPrecio(itemPlatoCazuela.precio)
+        tvPlatoPastelChocloTotal.text = formatearPrecio(itemPlatoPastelChoclo.precio)
+        tvPlatoCazuelaTotal.text = formatearPrecio(itemPlatoCazuela.precio)
 
-        // Setear valores finales en 0
+        // Inicializar valores en 0
+        tvPlatoPastelChocloTotal.text = formatearPrecio(0)
+        tvPlatoCazuelaTotal.text = formatearPrecio(0)
         tvComidaValor.text = formatearPrecio(0)
         tvPropinaValor.text = formatearPrecio(0)
         tvTotalValor.text = formatearPrecio(0)
@@ -56,9 +58,14 @@ class MainActivity : AppCompatActivity() {
             // Setear propiedad aceptaPropina desde propiedad isChecked del switch
             cuentaMesa.aceptaPropina = swPropina.isChecked
             // Se agregan los platos y sus cantidades a la cuenta
-            cuentaMesa.agregarItem(itemPlatoPastelChoclo, etPlatoPastelChocloCantidad.text.toString().toIntOrNull() ?: 0)
-            cuentaMesa.agregarItem(itemPlatoCazuela, etPlatoCazuelaCantidad.text.toString().toIntOrNull() ?: 0)
-            // Se setean los resultados de los calculos en los valores finales
+            val platoPastelChocloCantidad = etPlatoPastelChocloCantidad.text.toString().toIntOrNull() ?: 0
+            val platoCazuelaCantidad = etPlatoCazuelaCantidad.text.toString().toIntOrNull() ?: 0
+            cuentaMesa.agregarItem(itemPlatoPastelChoclo, platoPastelChocloCantidad)
+            cuentaMesa.agregarItem(itemPlatoCazuela, platoCazuelaCantidad)
+            // Setear valores en los platos
+            tvPlatoPastelChocloTotal.text = formatearPrecio(itemPlatoPastelChoclo.precio*platoPastelChocloCantidad)
+            tvPlatoCazuelaTotal.text = formatearPrecio(itemPlatoCazuela.precio*platoCazuelaCantidad)
+            // Setear valores de calculos finales
             tvComidaValor.text = formatearPrecio(cuentaMesa.calcularTotalSinPropina())
             tvPropinaValor.text = formatearPrecio(cuentaMesa.calcularPropina())
             tvTotalValor.text = formatearPrecio(cuentaMesa.calcularTotalConPropina())
