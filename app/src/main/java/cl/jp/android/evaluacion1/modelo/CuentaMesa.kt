@@ -45,9 +45,10 @@ class CuentaMesa (val mesa: Int) {
     }
 
     private fun obtenerPropina(valorTotal: Int): Int {
-        // Recibo el valor y calculo la propina, uso esta función para no repetir la lógica
-        // en las funciones de calcularPropina y calcularTotalConPropina
-        // Si no acepta propina que directamente retorne 0, en caso contrario que calcule
+        /* Recibo el valor y calculo la propina, uso esta función para no repetir la lógica
+        * en las funciones de calcularPropina y calcularTotalConPropina
+        * Si no acepta propina que directamente retorne 0, en caso contrario que calcule
+        * */
         if (!aceptaPropina) return 0
         return (valorTotal * (propinaPorcentaje / 100)).toInt()
     }

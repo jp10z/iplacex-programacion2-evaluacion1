@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // Obtenemos vistas (elementos de la interfaz) y asigamos a variables
+        // Obtenemos vistas (elementos de la interfaz) y asignamos a variables
         val tvPlatoPastelChocloPrecio = findViewById<TextView>(R.id.tvPlatoPastelChocloPrecio)
         val tvPlatoCazuelaPrecio = findViewById<TextView>(R.id.tvPlatoCazuelaPrecio)
         val etPlatoPastelChocloCantidad = findViewById<EditText>(R.id.etPlatoPastelChocloCantidad)
@@ -46,10 +46,14 @@ class MainActivity : AppCompatActivity() {
 
         // Función que calcula los valores finales y los setea en la interfaz
         fun calcularValores() {
+            // Nueva instancia de CuentaMesa
             val cuentaMesa = CuentaMesa(1)
+            // Setear propiedad aceptaPropina desde propiedad isChecked del switch
             cuentaMesa.aceptaPropina = swPropina.isChecked
+            // Se agregan los platos y sus cantidades a la cuenta
             cuentaMesa.agregarItem(itemPlatoPastelChoclo, etPlatoPastelChocloCantidad.text.toString().toIntOrNull() ?: 0)
             cuentaMesa.agregarItem(itemPlatoCazuela, etPlatoCazuelaCantidad.text.toString().toIntOrNull() ?: 0)
+            // Se setean los resultados de los calculos en los valores finales
             tvComidaValor.text = formatearPrecio(cuentaMesa.calcularTotalSinPropina())
             tvPropinaValor.text = formatearPrecio(cuentaMesa.calcularPropina())
             tvTotalValor.text = formatearPrecio(cuentaMesa.calcularTotalConPropina())
