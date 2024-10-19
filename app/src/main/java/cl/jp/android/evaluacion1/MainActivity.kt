@@ -44,6 +44,11 @@ class MainActivity : AppCompatActivity() {
         tvPlatoPastelChocloPrecio.text = formatearPrecio(itemPlatoPastelChoclo.precio)
         tvPlatoCazuelaPrecio.text = formatearPrecio(itemPlatoCazuela.precio)
 
+        // Setear valores finales en 0
+        tvComidaValor.text = formatearPrecio(0)
+        tvPropinaValor.text = formatearPrecio(0)
+        tvTotalValor.text = formatearPrecio(0)
+
         // Función que calcula los valores finales y los setea en la interfaz
         fun calcularValores() {
             // Nueva instancia de CuentaMesa
